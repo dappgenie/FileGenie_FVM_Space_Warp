@@ -5,7 +5,7 @@
       <RouterView />
       <Toasts />
     </div>
-    <Footer />
+    <!-- <Footer /> -->
   </main>
 </template>
 
