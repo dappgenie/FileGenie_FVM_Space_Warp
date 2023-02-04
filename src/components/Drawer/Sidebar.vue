@@ -23,19 +23,19 @@ const route = (path: string) => {
       <div class="sidebar-item" @click="route('/dashboard')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:view-dashboard />
-          <span class="sidebar-text" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">Dashboard</span>
+          <span class="sidebar-text" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">Files</span>
         </div>
       </div>
       <div class="sidebar-item" @click="route('/contracts')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:file-document-edit />
-          <span class="sidebar-text opacity-100" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">Ready Contracts</span>
+          <span class="sidebar-text opacity-100" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">NFTs</span>
         </div>
       </div>
       <div class="sidebar-item" @click="route('/file-manager')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:clipboard-file />
-          <span class="sidebar-text" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">File Manager</span>
+          <span class="sidebar-text" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">Dynamic NFTs</span>
         </div>
       </div>
     </div>
