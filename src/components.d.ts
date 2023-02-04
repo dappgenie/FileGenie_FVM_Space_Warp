@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     BasicCard: typeof import('./components/BasicCard.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
     CustomModal: typeof import('./components/CustomModal.vue')['default']
+    DarkToggle: typeof import('./components/DarkToggle.vue')['default']
     Drawer: typeof import('./components/Drawer/index.vue')['default']
     DrawerCodeDisplay: typeof import('./components/Drawer/CodeDisplay.vue')['default']
     DrawerSidebar: typeof import('./components/Drawer/Sidebar.vue')['default']
