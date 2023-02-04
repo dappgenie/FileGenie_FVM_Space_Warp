@@ -7,14 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AAvatar: typeof import('anu-vue')['AAvatar']
     Accordion: typeof import('./components/Accordion.vue')['default']
     BasicCard: typeof import('./components/BasicCard.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
     CustomModal: typeof import('./components/CustomModal.vue')['default']
     DarkToggle: typeof import('./components/DarkToggle.vue')['default']
     Drawer: typeof import('./components/Drawer/index.vue')['default']
-    DrawerCodeDisplay: typeof import('./components/Drawer/CodeDisplay.vue')['default']
     DrawerSidebar: typeof import('./components/Drawer/Sidebar.vue')['default']
     Dropdown: typeof import('./components/Dropdown.vue')['default']
     FMSFile: typeof import('./components/FMS/File.vue')['default']
@@ -48,7 +46,6 @@ declare module '@vue/runtime-core' {
     MediaSpinner: typeof import('./components/Media/Spinner.vue')['default']
     MediaVideoPlayer: typeof import('./components/Media/VideoPlayer.vue')['default']
     MessageModal: typeof import('./components/MessageModal.vue')['default']
-    README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SubHeader: typeof import('./components/SubHeader.vue')['default']
