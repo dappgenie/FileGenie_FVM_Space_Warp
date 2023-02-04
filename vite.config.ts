@@ -16,6 +16,7 @@ import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
 import VueMacros from 'unplugin-vue-macros/vite'
+import { AnuComponentResolver } from 'anu-vue'
 
 export default defineConfig({
   resolve: {
@@ -53,6 +54,7 @@ export default defineConfig({
         'vue/macros',
         '@vueuse/head',
         '@vueuse/core',
+        'pinia',
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
@@ -64,6 +66,10 @@ export default defineConfig({
 
     // https://github.com/antfu/unplugin-vue-components
     Components({
+      resolvers: [
+        AnuComponentResolver(),
+      ],
+      directoryAsNamespace: true,
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
