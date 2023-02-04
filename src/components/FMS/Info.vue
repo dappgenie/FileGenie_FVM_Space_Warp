@@ -49,7 +49,7 @@ const emit = defineEmits<IInfoEmits>()
 
 <style module lang="css">
     .info-bar {
-      @apply relative overflow-hidden right-0 z-10 nav-background shadow-btn dark:shadow-btn-dark h-full;
+      @apply relative overflow-hidden right-0 z-10 background-secondary shadow-btn dark:shadow-btn-dark h-full;
       transition: width 300ms;
     }
 </style>

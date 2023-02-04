@@ -29,7 +29,7 @@ const { toggle, isFullscreen } = useFullscreen(modalRef)
           ref="modalRef" class="modal-content open-transition"
           :class="isFullscreen ? 'modal-fullscreen' : 'max-w-file'" @click="$event.stopPropagation()"
         >
-          <div v-if="!isFullscreen" z-20 w-full sticky top-0 nav-background h-12 md:h-16 flex justify-end items-center>
+          <div v-if="!isFullscreen" z-20 w-full sticky top-0 background-secondary h-12 md:h-16 flex justify-end items-center>
             <button
               v-if="!isFullscreen && (item.fileType === 'IMAGE' || item.fileType === 'PDF')"
               class="close-btn"

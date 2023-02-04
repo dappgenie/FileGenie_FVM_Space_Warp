@@ -2,7 +2,7 @@
 import { onClickOutside } from '@vueuse/core'
 let showSidebar = $ref(false)
 const sidebar = ref(null)
-const { apiLoading } = $(storeToRefs(useLoaderStore()))
+const { apiLoading } = storeToRefs(useLoaderStore())
 onClickOutside(sidebar, event => (showSidebar = true))
 </script>
 
@@ -28,7 +28,9 @@ onClickOutside(sidebar, event => (showSidebar = true))
     <div id="loader-content" class="drawer-content" name="loader-content">
       <Header />
       <!-- 👉 Drawer Content -->
-      <slot name="page" />
+      <div p-8>
+        <slot name="page" />
+      </div>
       <LoaderItem v-if="apiLoading" />
     </div>
   </div>

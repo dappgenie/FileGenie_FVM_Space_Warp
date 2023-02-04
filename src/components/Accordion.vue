@@ -10,7 +10,7 @@ defineProps<IButtonProps>()
 <template>
   <div
     class="w-full shadow-btn dark:shadow-btn-dark rounded-xl"
-    :class="bg ? bg : 'nav-background'"
+    :class="bg ? bg : 'background-secondary'"
   >
     <div
       class="px-3 py-2 md:px-6 md:py-3 w-full flex justify-between items-center dropdown-animate transition-all"

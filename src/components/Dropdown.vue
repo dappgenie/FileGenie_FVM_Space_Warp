@@ -123,7 +123,7 @@ const dropStyle = computed(() => {
 /*                                 TRANSITIONS                                */
 /* -------------------------------------------------------------------------- */
 .dropdown-content {
-  @apply absolute mt-1 z-50 rounded-lg w-max nav-background overflow-hidden overflow-y-scroll shadow-xl;
+  @apply absolute mt-1 z-50 rounded-lg w-max background-secondary overflow-hidden overflow-y-scroll shadow-xl;
 }
 
 .bounce-right-enter-active {

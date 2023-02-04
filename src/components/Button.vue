@@ -28,7 +28,7 @@
         @apply btn flex justify-center items-center shadow-btn dark:shadow-btn-dark hover:shadow-btn-hover dark:hover:shadow-btn-dark-hover;
     }
     .btn-base {
-        @apply nav-background hover:bg-[#DDE7FC]/40 hover:dark:bg-[#1C2434]/40 text-color-primary;
+        @apply background-secondary hover:bg-[#DDE7FC]/40 hover:dark:bg-[#1C2434]/40 text-color-primary;
     }
     .btn-primary {
         @apply bg-primary dark:bg-secondary hover:bg-primary/80 dark:hover:bg-secondary/80 text-white;
