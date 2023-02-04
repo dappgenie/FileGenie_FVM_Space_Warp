@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Accordion: typeof import('./components/Accordion.vue')['default']
     BasicCard: typeof import('./components/BasicCard.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
     CustomModal: typeof import('./components/CustomModal.vue')['default']

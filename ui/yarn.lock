@@ -6662,9 +6662,9 @@ vite-plugin-vue-component-preview@^0.3.4:
     vite-plugin-vue-markdown "^0.22.1"
 
 vite-plugin-vue-inspector@^3.2.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-vue-inspector/-/vite-plugin-vue-inspector-3.3.1.tgz#bff263f4b0d102ffcafc7ef9063b3058aca6d9f1"
-  integrity sha512-kq4Dum8AdgfU4574/mb1zgeM334OXWNwGCZae6Sa4Bvzj2iLe0u3lYhZq4NQYQRmknIBt7hXODP56TwpiSLFeg==
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-vue-inspector/-/vite-plugin-vue-inspector-3.3.0.tgz#f7cd9c0a0b2e48891ff7dd43849b6a14f8c1ef2d"
+  integrity sha512-X1078pOP5FF+b9XjTgsFmDgyNsAci2WNS+yZ+Af3ARWFwPQqyyIjmThTAfZdmJ1SAyCMw1A55sv60Yl0ZoCyXQ==
   dependencies:
     "@babel/core" "^7.20.7"
     "@babel/plugin-syntax-import-meta" "^7.10.4"
