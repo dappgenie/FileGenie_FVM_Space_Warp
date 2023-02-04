@@ -36,7 +36,7 @@ const isOpen = ref<boolean>(false)
 }
 
 .mob-nav {
-  @apply font-bold background block space-y-3 text-center transition-all overflow-hidden transition-all;
+  @apply font-bold background-secondary block space-y-3 text-center transition-all overflow-hidden transition-all;
 }
 
 .menu {

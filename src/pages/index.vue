@@ -5,7 +5,7 @@ defineOptions({
 
 const router = useRouter()
 const go = () => {
-    router.push('/files')
+    router.push('/files/my-files')
 }
 
 </script>

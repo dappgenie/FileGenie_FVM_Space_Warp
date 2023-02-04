@@ -1,5 +1,5 @@
 import { Web3Storage } from 'web3.storage'
-import { INFTData, StoreImageResult } from './web3.requests';
+import { StoreImageResult } from '~/utils/interfaces/NFT'
 
 export function makeGatewayURL(cid: string, path: string) {
   return `https://${cid}.ipfs.dweb.link/${encodeURIComponent(path)}`
@@ -11,7 +11,7 @@ export function jsonFile(filename: string, obj: any) {
 
 const namePrefix = 'ImageGallery'
 
-export async function storeImage(imageFile: File, caption: INFTData): Promise<StoreImageResult | void> {
+export async function storeImage(imageFile: File, caption: any): Promise<StoreImageResult | void> {
   const uploadName = [namePrefix, caption].join('|')
   const metadataFile = jsonFile('metadata.json', {
     path: imageFile.name,

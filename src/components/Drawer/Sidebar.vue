@@ -20,19 +20,19 @@ const route = (path: string) => {
       <img v-else class="h-12 mr-2" :src="Logo_icon" alt="logo_image">
     </div>
     <div class="w-full">
-      <div class="sidebar-item" @click="route('/dashboard')">
+      <div class="sidebar-item" @click="route('/files/my-files')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:view-dashboard />
           <span class="sidebar-text" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">Files</span>
         </div>
       </div>
-      <div class="sidebar-item" @click="route('/contracts')">
+      <div class="sidebar-item" @click="route('/files/nfts')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:file-document-edit />
           <span class="sidebar-text opacity-100" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">NFTs</span>
         </div>
       </div>
-      <div class="sidebar-item" @click="route('/file-manager')">
+      <div class="sidebar-item" @click="route('/files/dynamic-nfts')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:clipboard-file />
           <span class="sidebar-text" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">Dynamic NFTs</span>
