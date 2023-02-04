@@ -25,10 +25,10 @@ onClickOutside(sidebar, event => (showSidebar = true))
     >
       <DrawerSidebar ref="sidebar" />
     </div>
-    <div id="loader-content" class="drawer-content" name="loader-content">
-      <Header />
+    <div id="loader-content" class="drawer-content " name="loader-content">
+      <Header :main="false" />
       <!-- 👉 Drawer Content -->
-      <div p-8>
+      <div>
         <slot name="page" />
       </div>
       <LoaderItem v-if="apiLoading" />

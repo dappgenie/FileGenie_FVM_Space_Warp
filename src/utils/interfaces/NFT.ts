@@ -30,3 +30,21 @@ export interface StoreImageResult {
   imageGatewayURL: string;
   metadataGatewayURL: string;
 }
+
+export interface INFTAttribute {
+  display_type: 'property' | 'number' | 'date' | 'boost_number' | 'boost_percentage'
+  trait_type: string;
+  value: string;
+}
+
+export interface INFTStructure {
+  image: string;
+  name: string;
+  description?: string;
+  attributes?: INFTAttribute[];
+}
+
+export interface INFTCollection {
+  name: string;
+  nfts: INFTStructure[];
+}
