@@ -5,16 +5,18 @@ const foldersList: IFolder[] = [
 {
   name: 'Single NFT Uploads',
   path: '/files/nfts/single-nft',
-  id: 1,
-  parent: null,
-  cid: ''
+  id: '1',
+  parent: null, 
+  children: [],
+  files: []
 },
 {
   name: 'NFT Collections',
   path: '/files/nfts/nft-collections',
-  id: 2,
+  id: '2',
   parent: null,
-  cid: ''
+  children: [],
+  files: []
 }]
 </script>
 

@@ -1,4 +1,5 @@
-<script lang="ts" setup>import { IFolder } from '~/utils/interfaces/folder';
+<script lang="ts" setup>
+import { IFolder } from '~/utils/interfaces/folder';
 
 const props = defineProps<IFolderListProps>()
 const emit = defineEmits<IFolderListEmit>()

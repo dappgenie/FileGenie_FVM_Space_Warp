@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { Web3Service } from '~/services/web3';
 import { INFTStructure } from '~/utils/interfaces/NFT';
 
-const web3Service = useService('web3')
+const web3Service = new Web3Service()
 const showUploadNFT = ref<boolean>(false)
 const isSuccess = ref<boolean>(false)
 // const cid = 'bafyreidyywjpslozsjpw7lzgptamrajjihmr4h6w5d33pugrayk2k4q4c4/metadata.json'
