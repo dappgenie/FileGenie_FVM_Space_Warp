@@ -12,8 +12,6 @@ interface IFolderListEmit {
   (e: 'select:folder', value: IFolder): void
 }
 const folderDiv = ref<HTMLDivElement>()
-
-
 const target = ref<HTMLDivElement>()
 </script>
 
