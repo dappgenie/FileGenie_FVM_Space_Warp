@@ -19,7 +19,7 @@ const data = ref<INFTCollection>({
     <template #content>
       <Button m-auto :rounded="'lg'">
         <template #content>
-           Upload NFT Collection
+          Upload NFT Collection
         </template>
       </Button>
     </template>
@@ -47,24 +47,23 @@ const data = ref<INFTCollection>({
         <div flex gap-x-2>
           <FormFileUpload @upload="data.image = $event"/>
         </div>
-        <!-- <div></div> -->
-        <Button :rounded="'lg'" mt-6>
-          <template #content>
-            Add Attribute
-          </template>
-        </Button>
-        <Button :rounded="'lg'" mt-6>
-          <template #content>
-            Add Attribute
-          </template>
-        </Button>
-      </div>
+       <div></div> -->
+  <Button :rounded="'lg'" mt-6>
+    <template #content>
+      Add Attribute
     </template>
-  </ModalCustom> -->
+  </Button>
+  <Button :rounded="'lg'" mt-6>
+    <template #content>
+      Add Attribute
+    </template>
+  </Button>
+  <!-- </div> -->
+  <!-- </template> -->
+  <!-- </ModalCustom>  -->
 </template>
 
 <style scoped lang="css">
-
 .container {
   display: flex;
   flex-direction: column;

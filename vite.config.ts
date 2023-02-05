@@ -49,6 +49,7 @@ export default defineConfig({
         '@vueuse/head',
         '@vueuse/core',
         'pinia',
+        
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
