@@ -29,6 +29,7 @@ declare module '@vue/runtime-core' {
     FormCalendar: typeof import('./components/Form/Calendar.vue')['default']
     FormCheckbox: typeof import('./components/Form/Checkbox.vue')['default']
     FormDatePicker: typeof import('./components/Form/DatePicker.vue')['default']
+    FormDropzone: typeof import('./components/Form/Dropzone.vue')['default']
     FormFileUpload: typeof import('./components/Form/FileUpload.vue')['default']
     FormInputGroup: typeof import('./components/Form/InputGroup.vue')['default']
     FormNumber: typeof import('./components/Form/Number.vue')['default']

@@ -5,7 +5,6 @@ import { INFTStructure } from '~/utils/interfaces/NFT';
 const web3Service = new Web3Service()
 const showUploadNFT = ref<boolean>(false)
 const isSuccess = ref<boolean>(false)
-// const cid = 'bafyreidyywjpslozsjpw7lzgptamrajjihmr4h6w5d33pugrayk2k4q4c4/metadata.json'
 let data = reactive<INFTStructure>({
       name: '',
       description: '',
@@ -26,8 +25,16 @@ const removeAttribute = (index: number) => {
     data.attributes.splice(index, 1)
 }
 const uploadImage = async () => {
-  console.log("🚀 ~ file: single-nft.vue:20 ~ uploadImage ~ data", data)
+  const contract = await web3Service.deployNFT()
+  console.log("🚀 ~ file: single-nft.vue:29 ~ uploadImage ~ deploy", contract)
   const res = await web3Service.uploadNFT(data)
+  if(contract && res?.uri) {
+    const mintTx = web3Service.mintNFT(contract, res?.uri, 1)
+    console.log("🚀 ~ file: single-nft.vue:33 ~ uploadImage ~ mintTx", mintTx)
+    if(res) {
+      isSuccess.value = true
+    }
+  }
   if(res) {
     isSuccess.value = true
   }

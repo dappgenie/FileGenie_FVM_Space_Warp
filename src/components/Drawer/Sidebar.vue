@@ -29,7 +29,13 @@ const route = (path: string) => {
       <div class="sidebar-item" @click="route('/files/nfts')">
         <div class="sidebar-content">
           <a class="sidebar-icon" i-mdi:file-document-edit />
-          <span class="sidebar-text opacity-100" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">NFTs</span>
+          <span class="sidebar-text opacity-100" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">NFT Files</span>
+        </div>
+      </div>
+      <div class="sidebar-item" @click="route('/files/nft-contracts')">
+        <div class="sidebar-content">
+          <a class="sidebar-icon" i-mdi:file-document-edit />
+          <span class="sidebar-text opacity-100" :class="[is_expanded ? 'md:opacity-100 visible' : 'md:opacity-0 md:hidden']">NFT Contract</span>
         </div>
       </div>
       <div class="sidebar-item" @click="route('/files/dynamic-nfts')">

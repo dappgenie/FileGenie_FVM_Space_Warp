@@ -18,3 +18,7 @@ export async function displayIcon(cid: string): Promise<string> {
   const objectURL = URL.createObjectURL(blob);
   return objectURL
 }
+
+export function makeGatewayURL(cid: string) {
+  return `https://ipfs.io/ipfs/${cid}`
+}

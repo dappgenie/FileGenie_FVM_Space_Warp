@@ -280,7 +280,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-[#DDE7FC] dark:bg-header shadow-btn dark:shadow-btn-dark text-sm p-4 rounded-lg">
+  <div class="background-secondary m-10 shadow-btn dark:shadow-btn-dark text-sm p-4 rounded-lg">
     <div class="w-full flex justify-end items-end">
       <div class="search" v-if="search">
         <div class="icon" i-carbon:search />
