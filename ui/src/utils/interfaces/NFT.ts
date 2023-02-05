@@ -38,7 +38,7 @@ export interface INFTAttribute {
 }
 
 export interface INFTStructure {
-  image: string;
+  image: Blob | File | null;
   name: string;
   description?: string;
   attributes?: INFTAttribute[];

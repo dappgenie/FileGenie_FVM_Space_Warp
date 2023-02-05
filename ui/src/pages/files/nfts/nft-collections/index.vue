@@ -1,66 +1,44 @@
 <script lang="ts" setup>
-import { INFTCollection } from '~/utils/interfaces/NFT';
-
+const router = useRouter()
 const showUploadNFT = ref<boolean>(false)
-const data = ref<INFTCollection>({
-  name: '',
-  nfts: [
-    {
-      name: '',
-      description: '',
-      image: '',
-    },
-  ],
-})
+const name = ref<string>('')
+const go = () => {
+  if('name')
+    router.push(`/files/nfts/nft-collections/${encodeURIComponent(name.value)}`)
+}
 </script>
 
 <template>
   <SubHeader>
     <template #content>
-      <Button m-auto :rounded="'lg'">
+      <Button m-auto :rounded="'lg'" @click="showUploadNFT=true">
         <template #content>
            Upload NFT Collection
         </template>
       </Button>
     </template>
   </SubHeader>
-  <!-- <ModalCustom :show="!showUploadNFT">
+  <ModalCustom :show="showUploadNFT" @close="showUploadNFT=false">
     <template #title>
-      <div p-6 text-lg font-black>Add NFT Data</div>
+      <div p-6 text-lg font-black>Add NFT Collection</div>
     </template>
     <template #content>
       <div class="px-10 w-[600px]">
         <div flex gap-x-2>
           <FormTextInput
-            v-model="data.name"
+            v-model="name"
             class="text-sm my-3" label="Collection Name"
             placeholder="Enter collection name"
           />
         </div>
-        <div flex gap-x-2>
-          <FormTextArea
-            v-model="data.description"
-            class="text-sm my-3" label="Description"
-            placeholder="Enter description"
-          />
-        </div>
-        <div flex gap-x-2>
-          <FormFileUpload @upload="data.image = $event"/>
-        </div>
-        <!-- <div></div> -->
-        <Button :rounded="'lg'" mt-6>
+        <Button :rounded="'lg'" mt-3 mx-auto @click="go()">
           <template #content>
-            Add Attribute
-          </template>
-        </Button>
-        <Button :rounded="'lg'" mt-6>
-          <template #content>
-            Add Attribute
+            Add Collection
           </template>
         </Button>
       </div>
     </template>
-  </ModalCustom> -->
+  </ModalCustom>
 </template>
 
 <style scoped lang="css">

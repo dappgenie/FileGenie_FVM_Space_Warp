@@ -2,7 +2,7 @@ import type { MaybeRef } from '@vueuse/core'
 import { isNumber } from '@vueuse/core'
 import type { ComputedRef, Ref } from 'vue'
 import { computed, unref } from 'vue'
-import { isEmpty, isObject } from '~/utils/factories/helpers'
+import { isEmpty, isObject } from '~/utils/functions/helpers'
 
 export type CustomSort = ((a: unknown, b: unknown) => number)
 

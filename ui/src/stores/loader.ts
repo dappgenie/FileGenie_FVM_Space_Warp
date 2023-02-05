@@ -2,6 +2,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useLoaderStore = defineStore('loader', () => {
   const apiLoading = ref(false)
+  const isCustomLoading = ref(false)
   // const startApiLoading = () => {
   //   apiLoading.value = true
   // }
@@ -13,6 +14,7 @@ export const useLoaderStore = defineStore('loader', () => {
   }
   return {
     apiLoading,
+    isCustomLoading,
     toggleLoading,
   }
 })

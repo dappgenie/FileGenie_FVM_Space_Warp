@@ -19,14 +19,17 @@
     "@vueuse/core": "^9.11.0",
     "@vueuse/head": "^1.0.22",
     "anu-vue": "^0.12.0",
+    "axios": "^1.3.2",
     "ethers": "^5.7.2",
     "lodash.clonedeep": "^4.5.0",
+    "nft.storage": "^7.0.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.29",
     "pinia-plugin-persistedstate": "^3.0.2",
     "vue": "^3.2.45",
     "vue-demi": "^0.13.11",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "web3.storage": "^4.4.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.34.1",

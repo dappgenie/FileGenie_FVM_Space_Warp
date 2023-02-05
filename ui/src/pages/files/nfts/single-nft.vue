@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { INFTStructure } from '~/utils/interfaces/NFT';
 
+const web3Service = useService('web3')
 const showUploadNFT = ref<boolean>(false)
+const isSuccess = ref<boolean>(false)
+// const cid = 'bafyreidyywjpslozsjpw7lzgptamrajjihmr4h6w5d33pugrayk2k4q4c4/metadata.json'
 let data = reactive<INFTStructure>({
       name: '',
       description: '',
-      image: '',
+      image: null,
       attributes: []
 })
 const addAttribute = () => {
@@ -21,13 +24,13 @@ const removeAttribute = (index: number) => {
   if(data.attributes)
     data.attributes.splice(index, 1)
 }
-const uploadImage = (image: string) => {
-  console.log("🚀 ~ file: index.vue:25 ~ uploadImage ~ image", image)
-  // data.value.image = image
+const uploadImage = async (image: string) => {
+  console.log("🚀 ~ file: single-nft.vue:20 ~ uploadImage ~ data", data)
+  const res = await web3Service.uploadNFT(data)
+  if(res) {
+    isSuccess.value = true
+  }
 }
-watchEffect(() => {
-  console.log(data)
-})
 </script>
 
 <template>
@@ -69,7 +72,7 @@ watchEffect(() => {
               :input-option-class="'w-[33%]'"
               label="Display Type"
               placeholder="Display Type"
-              :options="['property', 'number   ', 'date         ', 'boost_number', 'boost_percentage']"
+              :options="['property', 'number', 'boost_number', 'boost_percentage']"
               :get-label="(option) => option"
               :get-value="(option) => option"
               :input-type="'inputCustom'"
@@ -96,7 +99,7 @@ watchEffect(() => {
             Add Attribute
           </template>
         </Button>
-        <Button :color="'gradient'" :rounded="'lg'" mt-6 w-full>
+        <Button :color="'gradient'" :rounded="'lg'" mt-6 w-full @click="uploadImage()">
           <template #content>
             <div py-1> Upload NFT </div>
           </template>

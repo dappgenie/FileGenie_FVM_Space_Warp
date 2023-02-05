@@ -1,7 +1,7 @@
 import type { MaybeRef } from '@vueuse/core'
 import type { ComputedRef, Ref } from 'vue'
 import { computed, unref } from 'vue'
-import { isEmpty, isObject } from '~/utils/factories/helpers'
+import { isEmpty, isObject } from '~/utils/functions/helpers'
 
 export type CustomFilter<T> = ((val: keyof T, q: string, item: T) => boolean)
 

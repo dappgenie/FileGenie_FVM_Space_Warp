@@ -1,10 +1,12 @@
-<script lang="ts" setup>
+<script lang="ts" setup>import { createBlobFromAsset } from '~/utils/functions/web3';
+
 interface IFileUploadEmit {
   (e: 'update', value: any): string
 }
 const emit = defineEmits<IFileUploadEmit>()
-const image = ref<string>('');
-const onFileChange = (e: Event) => {
+const image = ref<Blob | null>(null);
+const imagePreview = ref('')
+const onFileChange = async(e: Event) => {
   const target = e.target as HTMLInputElement;
   const files = target.files || (e as any).dataTransfer.files;
   if (!files.length) return;
@@ -15,8 +17,10 @@ const createImage = (file: File) => {
   // let image = '';
   const reader = new FileReader();
 
-  reader.onload = (e: ProgressEvent<FileReader>) => {
-    image.value = (e.target as FileReader).result as string;
+  reader.onload = async (e: ProgressEvent<FileReader>) => {
+    const data = (e.target as FileReader).result as string;
+    image.value = await createBlobFromAsset(data)
+    imagePreview.value = data
     console.log("🚀 ~ file: FileUpload.vue:20 ~ createImage ~ image.value", image.value)
     emit('update', image.value);
   };
@@ -29,7 +33,7 @@ const createImage = (file: File) => {
   <div class="contain">
     <div class="upload-container">
       <div class="preview-container" v-if="image">
-        <img :src="image" h-full @click="onFileChange" />
+        <img :src="imagePreview" h-full @click="onFileChange" />
       </div>
       <input v-else class="w-full h-full z-30 absolute" type="file" @change="onFileChange">
     </div>
