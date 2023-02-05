@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
+    "api",
     "ui"
   ],
   "scripts": {
+    "api": "yarn workspace api",
     "ui": "yarn workspace ui"
   }
 }
