@@ -15,7 +15,7 @@ export default defineConfig({
   shortcuts: [
     ['btn', 'px-4 py-2.5 text-sm font-semibold inline-block cursor-pointer disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
     ['icon-btn', 'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600'],
-    ['background', 'bg-[#ffffff] dark:bg-[#272727]'],
+    ['background', 'bg-[#ffffff] dark:bg-[#0c0d0f]'],
     ['background-secondary', 'bg-[#ededed] dark:bg-[#15171b] transition-colors-1000'],
     ['overlay', 'z-20 absolute w-screen top-0 left-0 h-full bg-[#595F6A]/70 dark:bg-[#232C3D]/70 backdrop-blur-sm'],
     ['text-color-primary', 'text-black dark:text-white'],

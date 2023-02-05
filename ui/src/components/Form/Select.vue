@@ -97,7 +97,7 @@ defineExpose({ input })
         <Button v-if="inputType === 'button'" v-on="events" id="dropdown-btn-trigger" name="dropdown-btn-trigger">
           <template #content>
             <slot name="input" :selection="selection" :has-value="hasValue"
-              class_details="p-2 text-sm rounded-md background-secondary bg-[#EEF2FB] dark:bg-[#1C2434] shadow-text-box dark:shadow-text-box-dark">
+              class_details="p-2 text-sm rounded-md nav-background bg-[#EEF2FB] dark:bg-[#1C2434] shadow-text-box dark:shadow-text-box-dark">
               <div class="input">
                 {{ hasValue ? valueText : (placeholder ?? 'Select') }}
                 <div i-mdi:menu-down class="w-6" />

@@ -38,7 +38,7 @@ const emit = defineEmits<IButtonEmits>()
         border-radius: 10em;
     }
     .btn-base {
-        @apply background hover:bg-[#black]/40 hover:dark:bg-gray-100 text-white dark:text-black;
+        @apply bg-blue-800 hover:bg-blue-900 text-white;
     }
     .btn-primary {
         @apply bg-blue dark:bg-blue hover:bg-blue/80 dark:hover:bg-blue/80 text-white;

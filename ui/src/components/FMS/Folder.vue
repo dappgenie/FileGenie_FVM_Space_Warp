@@ -1,18 +1,16 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core'
-import type { FileTypes } from '@dappgenie/utils'
+import { IFolder } from '~/utils/interfaces/folder';
 import folderImage from '../../assets/images/files/folder.svg'
-import type { IpfsDirectory } from '~/graphql'
 defineProps<IFolderProps>()
 const emit = defineEmits<IFolderEmit>()
-const { updatecurrentFolderType } = useFileStore()
 const { gridView } = $(storeToRefs(useFileStore()))
 interface IFolderEmit {
-  (e: 'open:folder', value: IpfsDirectory): void
-  (e: 'select:folder', value: IpfsDirectory): void
+  (e: 'open:folder', value: IFolder): void
+  (e: 'select:folder', value: IFolder): void
 }
 interface IFolderProps {
-  item: IpfsDirectory
+  item: IFolder
   selected?: boolean
 }
 const router = useRouter()
@@ -29,21 +27,14 @@ onClickOutside(
 )
 const RIGHTCLICK_OPTIONS = [
   'Open',
-  'Rename',
-  'Select',
-  'Move',
-  'Copy',
-  'Download',
   'Share',
-  'Delete',
 ]
-const openFolder = (item: IpfsDirectory) => {
+const openFolder = (item: IFolder) => {
   console.log('🚀 ~ file: Folder.vue ~ line 40 ~ openFolder ~ item', item)
   emit('open:folder', item)
-  updatecurrentFolderType(item.fileType as unknown as FileTypes)
-  router.push(`/file-manager/${encodeURIComponent(item._id)}`)
+  router.push(`${item.path}`)
 }
-const selectFolder = (item: IpfsDirectory) => {
+const selectFolder = (item: IFolder) => {
   emit('select:folder', item)
 }
 </script>
