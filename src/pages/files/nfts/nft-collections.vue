@@ -13,7 +13,7 @@ const go = () => {
     <template #content>
       <Button m-auto :rounded="'lg'" @click="showUploadNFT=true">
         <template #content>
-           Upload NFT Collection
+          Upload NFT Collection
         </template>
       </Button>
     </template>
@@ -31,6 +31,7 @@ const go = () => {
             placeholder="Enter collection name"
           />
         </div>
+<<<<<<<< HEAD:src/pages/files/nfts/nft-collections/index.vue
         <Button :rounded="'lg'" mt-3 mx-auto @click="go()">
           <template #content>
             Add Collection
@@ -39,10 +40,35 @@ const go = () => {
       </div>
     </template>
   </ModalCustom>
+========
+        <div flex gap-x-2>
+          <FormTextArea
+            v-model="data.description"
+            class="text-sm my-3" label="Description"
+            placeholder="Enter description"
+          />
+        </div>
+        <div flex gap-x-2>
+          <FormFileUpload @upload="data.image = $event"/>
+        </div>
+       <div></div> -->
+  <Button :rounded="'lg'" mt-6>
+    <template #content>
+      Add Attribute
+    </template>
+  </Button>
+  <Button :rounded="'lg'" mt-6>
+    <template #content>
+      Add Attribute
+    </template>
+  </Button>
+  <!-- </div> -->
+  <!-- </template> -->
+  <!-- </ModalCustom>  -->
+>>>>>>>> 64c0f5072b973169c510e96716d807eed0b3bcd7:src/pages/files/nfts/nft-collections.vue
 </template>
 
 <style scoped lang="css">
-
 .container {
   display: flex;
   flex-direction: column;
