@@ -1,45 +1,100 @@
 <template>
   <!-- 👉 Drawer Loader -->
-  <div class="loader">
-    <div class="lds-ring">
-      <div />
-      <div />
-      <div />
-      <div />
-    </div>
+  <div class='container'>
+  <div class='loader'>
+    <div class='loader--dot'></div>
+    <div class='loader--dot'></div>
+    <div class='loader--dot'></div>
+    <div class='loader--dot'></div>
+    <div class='loader--dot'></div>
+    <div class='loader--dot'></div>
+    <div class='loader--text'></div>
   </div>
+</div>
 </template>
 
 <style scoped lang="css">
+
+.container {
+  @apply h-screen w-screen;
+}
+
 .loader {
-  @apply w-full h-full z-10 flex justify-center items-center;
-  @apply background absolute top-0 left-0;
-  /* height: calc(100vh - 7.5rem); */
+  @apply h-5 w-60 absolute top-0 bottom-0 left-0 right-0 m-auto;
 }
-.lds-ring {
-  @apply inline-block relative w-12 h-12;
+  
+.loader--dot {
+  animation: loader ease-in-out 3s infinite;
+  /* border-radius: 100% */
+  @apply w-5 h-5 rounded-full bg-black absolute;
+
 }
-.lds-ring div {
-  @apply block absolute w-12 h-12 m-2 rounded-full;
-  @apply box-border border-5;
-  @apply border-transparent border-t-primary dark:border-t-secondary;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+.loader--dot:first-child {
+      background-color: #9adc66;
+      animation-delay: 0.5s;
+    }
+.loader--dot:nth-child(2) {
+      background-color: #8420e9;
+      animation-delay: 0.4s;
+    }
+.loader--dot:nth-child(3) {
+      background-color: #00daff;
+      animation-delay: 0.3s;
+    }
+.loader--dot:nth-child(4){
+      background-color: #016bff;
+      animation-delay: 0.2s;
+    }
+.loader--dot:nth-child(5){
+      background-color: #5601e6;
+      animation-delay: 0.1s;
+    }
+.loader--dot:nth-child(6){
+      background-color: #90dc66;
+      animation-delay: 0s;
+    }
+  
+    .loader--text {
+      @apply absolute top-[200%] left-0 right-0 w-16 m-auto;
+    }
+
+    .loader--text:after {
+      content: "Loading";   
+      @apply font-bold ;
+      animation: loading-text 3s infinite;
+    }
+    
+@keyframes loader {
+  15%{
+    transform: translateX(0);
+  }
+  45%{
+      transform: translateX( 230px );
+  }
+  65% {
+    transform: translateX( 230px );
+  }
+  95% {
+    transform: translateX(0);
+  }
 }
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
+
+@keyframes loading-text {
   0% {
-    transform: rotate(0deg);
+    content: "Loading";
   }
-  100% {
-    transform: rotate(360deg);
+  
+  25% {
+    content: "Loading.";
   }
+  
+  50% {
+    content: "Loading..";
+  }
+  
+  75% {
+    content: "Loading...";
+  }
+
 }
 </style>
