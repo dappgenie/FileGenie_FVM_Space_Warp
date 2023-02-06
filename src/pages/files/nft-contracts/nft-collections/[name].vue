@@ -1,7 +1,6 @@
-<script lang="ts" setup>import { Web3Service } from '~/services/web3';
-import { readFile } from '~/utils/functions/web3';
-
-const { files, open, reset } = useFileDialog()
+<script lang="ts" setup>
+import { Web3Service } from '~/services/web3';
+const { files, open } = useFileDialog()
 interface IContract {
   name: string
   type: string
@@ -10,6 +9,7 @@ const route = useRoute()
 const web3Service = new Web3Service()
 const name = ref<string>((route.params.name as string) || '')
 const showInstructions = ref<boolean>(false)
+const isSuccess = ref<boolean>(false)
 
 let filesList = ref<IContract[]>([])
 const filesDataList = ref<File[]>([])
@@ -43,8 +43,20 @@ const readFile = async(file: File) => {
 const upload = async() => {
   if(!files.value) return
   if(metaDataJson.value) {
+    const contract = await web3Service.deployNFT()
+    const res = await web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
+    if(contract && res?.ids.length) {
+      const amounts = res.ids.map(() => 1)
+      const mintTx = await web3Service.mintNFTCollection(contract, res?.ids, amounts)
+      console.log("🚀 ~ file: single-nft.vue:33 ~ uploadImage ~ mintTx", mintTx)
+      if(res) {
+        isSuccess.value = true
+      }
+    }
+    if(res) {
+      isSuccess.value = true
+    }
     console.log("🚀 ~ file: [name].vue:43 ~ upload ~ metaDataJson.value", metaDataJson.value)
-    web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
   }
   
 }
