@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { supabase } from '~/utils/functions/supabase'
 
 export const useWeb3Store = defineStore('web3', () => {
   const address = ref('')
