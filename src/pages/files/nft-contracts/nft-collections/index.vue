@@ -1,35 +1,46 @@
-<script lang="ts" setup>
+<script lang="ts" setup>import { supabase } from '~/utils/functions/supabase';
+
 const router = useRouter()
 const showUploadNFT = ref<boolean>(false)
+const { address } = storeToRefs(useWeb3Store())
 const name = ref<string>('')
 const go = () => {
-  if('name')
+  if ('name')
     router.push(`/files/nft-contracts/nft-collections/${encodeURIComponent(name.value)}`)
 }
+const mountFetch = async () => {
+  const { data, error } = await supabase
+    .from('nft-collection_nft_contract')
+    .select()
+    .eq('user_wallet', address.value)
+
+  console.table(data)
+  console.log(error)
+}
+onMounted(() => {
+  mountFetch()
+})
 </script>
 
 <template>
   <SubHeader>
     <template #content>
-      <Button m-auto :rounded="'lg'" @click="showUploadNFT=true">
+      <Button m-auto :rounded="'lg'" @click="showUploadNFT = true">
         <template #content>
           Upload NFT Collection
         </template>
       </Button>
     </template>
   </SubHeader>
-  <ModalCustom :show="showUploadNFT" @close="showUploadNFT=false">
+  <ModalCustom :show="showUploadNFT" @close="showUploadNFT = false">
     <template #title>
       <div p-6 text-lg font-black>Add NFT Collection</div>
     </template>
     <template #content>
       <div class="px-10 w-[600px]">
         <div flex gap-x-2>
-          <FormTextInput
-            v-model="name"
-            class="text-sm my-3" label="Collection Name"
-            placeholder="Enter collection name"
-          />
+          <FormTextInput v-model="name" class="text-sm my-3" label="Collection Name"
+            placeholder="Enter collection name" />
         </div>
         <Button :rounded="'lg'" mt-3 mx-auto @click="go()">
           <template #content>
