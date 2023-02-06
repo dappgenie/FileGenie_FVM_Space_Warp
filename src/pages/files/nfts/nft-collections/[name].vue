@@ -44,9 +44,9 @@ const upload = async() => {
   if(!files.value) return
   if(metaDataJson.value) {
     console.log("🚀 ~ file: [name].vue:43 ~ upload ~ metaDataJson.value", metaDataJson.value)
-    web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
+    const res = await web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
+    console.log("🚀 ~ file: [name].vue:48 ~ upload ~ res", res)
   }
-  
 }
 // const data = ref<INFTCollection>({
 //   name: (route.params.name as string) || '',
