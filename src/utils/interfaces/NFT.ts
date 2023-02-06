@@ -48,3 +48,12 @@ export interface INFTCollection {
   name: string;
   nfts: INFTStructure[];
 }
+
+
+export interface ISingleNFT {
+  id: number,
+  name: string, 
+  cid: string, 
+  uri: string, 
+  user_wallet: string 
+}

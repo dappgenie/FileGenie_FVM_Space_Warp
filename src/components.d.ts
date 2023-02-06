@@ -44,6 +44,7 @@ declare module '@vue/runtime-core' {
     LoaderItem: typeof import('./components/Loader/Item.vue')['default']
     LoaderMain: typeof import('./components/Loader/Main.vue')['default']
     LoaderPreloader: typeof import('./components/Loader/Preloader.vue')['default']
+    LoaderSpinner: typeof import('./components/Loader/Spinner.vue')['default']
     MediaMenu: typeof import('./components/Media/Menu.vue')['default']
     MediaMenuItem: typeof import('./components/Media/MenuItem.vue')['default']
     MediaPdfViewer: typeof import('./components/Media/PdfViewer.vue')['default']

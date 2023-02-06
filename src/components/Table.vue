@@ -311,7 +311,7 @@ onMounted(() => {
         <!-- 👉 tbody -->
         <tbody v-if="rowsToRender.length">
           <tr v-for="(row, idx) of rowsToRender" :key="idx">
-            <td v-for="(col, id) of _columns" :key="id" class="table-item whitespace-nowrap" :class="col?.width">
+            <td v-for="(col, id) of _columns" :key="id" class="table-item whitespace-nowrap truncate" :class="col?.width">
               <slot :name="`row-${col.name}`" :value="row[col.name as keyof Object]" :record="row"
                 v-bind="{ row, idx }">
                 <div class="truncate" v-if="col.name === 'index'">
