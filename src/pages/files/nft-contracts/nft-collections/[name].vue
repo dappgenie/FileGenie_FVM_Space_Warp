@@ -43,8 +43,10 @@ const readFile = async(file: File) => {
 const upload = async() => {
   if(!files.value) return
   if(metaDataJson.value) {
-    const contract = await web3Service.deployNFT()
     const res = await web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
+    if(!res) return
+    const contract = await web3Service.deployNFTCollection(res?.metaDataCids)
+    console.log("🚀 ~ file: [name].vue:47 ~ upload ~ contract", contract)
     if(contract && res?.ids.length) {
       const amounts = res.ids.map(() => 1)
       const mintTx = await web3Service.mintNFTCollection(contract, res?.ids, amounts)

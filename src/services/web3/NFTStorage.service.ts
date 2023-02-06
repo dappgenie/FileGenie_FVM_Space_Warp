@@ -25,11 +25,11 @@ import { INFTAttribute, INFTStructure } from '~/utils/interfaces/NFT'
     return cid
   }
 
-  export async function storeNFTCollection(files: File[], metaData: any): Promise<{ metaDataCids: string, ids: string[] } | void> {
+  export async function storeNFTCollection(files: File[], metaData: any): Promise<{ metaDataCids: string, ids: number[] } | void> {
     const client = new NFTStorage({ token: import.meta.env.VITE_NFT_STORAGE_API_KEY })
     const fileCid = await client.storeDirectory(files)
     let nftCollection: File[] = []
-    let fileIds: string[] = []
+    let fileIds: number[] = []
     files.map((file, i) => {
       let nft = {}
       const fileName = file.name
@@ -45,10 +45,11 @@ import { INFTAttribute, INFTStructure } from '~/utils/interfaces/NFT'
       // const data = new File([JSON.stringify(nft)], 'metadata.json', { type: 'application/json' })
       const data = new File([JSON.stringify(nft, null, 2)], 'metadata.json')
       console.log("🚀 ~ file: NFTStorage.service.ts:43 ~ files.map ~ data", data)
-      const fileData = new File([data], `${fileName}.json`);
-      fileIds.push(`${fileName}.json`)
+      const fileData = new File([data], `${fileName.split('.')[0]}.json`);
+      fileIds.push(Number(fileName.split('.')[0]))
       nftCollection.push(fileData)
     })
+    console.log("🚀 ~ file: NFTStorage.service.ts:50 ~ files.map ~ fileIds", fileIds)
     console.log("🚀 ~ file: NFTStorage.service.ts:49 ~ files.map ~ nftCollection", nftCollection)
     const metaDataCids = await client.storeDirectory(nftCollection)
     return {metaDataCids, ids: fileIds}

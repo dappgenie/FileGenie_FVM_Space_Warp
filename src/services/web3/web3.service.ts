@@ -1,5 +1,5 @@
 import { Contract, ContractFactory, providers, utils } from 'ethers';
-import { ABI_ERC1155, BYTECODE_ERC1155 } from '~/utils/constants/contracts';
+import { ABI_SINGLE, BYTECODE_SINGLE, ABI_COLLECTION, BYTECODE_COLLECTION } from '~/utils/constants/contracts';
 import { INFTStructure } from "~/utils/interfaces/NFT";
 import { storeNFT, storeNFTCollection } from './NFTStorage.service';
 const { addToast } = useToastStore()
@@ -17,9 +17,26 @@ export class Web3Service {
     if(ethereum) {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const factory = new ContractFactory(ABI_ERC1155, BYTECODE_ERC1155, signer)
+      const factory = new ContractFactory(ABI_SINGLE, BYTECODE_SINGLE, signer)
       // If your contract requires constructor args, you can specify them here
       const contract = await factory.deploy();
+      console.log("🚀 ~ file: web3.service.ts:23 ~ Web3Service ~ deployNFT ~ contract", contract)
+      return contract.address
+    }
+  }
+
+  async deployNFTCollection (baseURI: string) {
+    const { ethereum } = window
+    if (!ethereum) {
+      addToast('Oh Snap!', 'Ethereum provider not found', 'error')
+      return false
+    }
+    if(ethereum) {
+      const provider = new providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const factory = new ContractFactory(ABI_COLLECTION, BYTECODE_COLLECTION, signer)
+      // If your contract requires constructor args, you can specify them here
+      const contract = await factory.deploy(baseURI);
       console.log("🚀 ~ file: web3.service.ts:23 ~ Web3Service ~ deployNFT ~ contract", contract)
       return contract.address
     }
@@ -38,7 +55,7 @@ export class Web3Service {
       return null
     }
   }
-  async uploadNFTCollection (files: File[], metaData: any) : Promise<{ metaDataCids: string, ids: string[] } | null> {
+  async uploadNFTCollection (files: File[], metaData: any) : Promise<{ metaDataCids: string, ids: number[] } | null> {
     const res = await storeNFTCollection(files, metaData)
     console.log("🚀 ~ file: web3.service.ts:10 ~ Web3Service ~ uploadNFT ~ cid", res)
     if(res) {
@@ -59,14 +76,14 @@ export class Web3Service {
     if(ethereum) {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const contract = new Contract(contractAddress, ABI_ERC1155, signer)
+      const contract = new Contract(contractAddress, ABI_SINGLE, signer)
       const data = utils.hexlify(utils.toUtf8Bytes(""));
       const tx = await contract.mint(address.value, amount, data, uri)
       await tx.wait()
       return tx.hash
     }
   }
-  async mintNFTCollection (contractAddress: string, ids: string[], amount: number[]) {
+  async mintNFTCollection (contractAddress: string, ids: number[], amount: number[]) {
     const { ethereum } = window
     if (!ethereum) {
       addToast('Oh Snap!', 'Ethereum provider not found', 'error')
@@ -75,8 +92,11 @@ export class Web3Service {
     if(ethereum) {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const contract = new Contract(contractAddress, ABI_ERC1155, signer)
+      const contract = new Contract(contractAddress, ABI_COLLECTION, signer)
       const data = utils.hexlify(utils.toUtf8Bytes(""));
+      console.log("🚀 ~ file: web3.service.ts:98 ~ Web3Service ~ mintNFTCollection ~ amount", amount)
+      console.log("🚀 ~ file: web3.service.ts:98 ~ Web3Service ~ mintNFTCollection ~ ids", ids)
+      console.log("🚀 ~ file: web3.service.ts:98 ~ Web3Service ~ mintNFTCollection ~ address.value", address.value)
       const tx = await contract.mintBatch(address.value, ids, amount, data)
       await tx.wait()
       return tx.hash

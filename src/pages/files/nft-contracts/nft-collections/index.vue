@@ -4,7 +4,7 @@ const showUploadNFT = ref<boolean>(false)
 const name = ref<string>('')
 const go = () => {
   if('name')
-    router.push(`/files/nfts/nft-collections/${encodeURIComponent(name.value)}`)
+    router.push(`/files/nft-contracts/nft-collections/${encodeURIComponent(name.value)}`)
 }
 </script>
 
