@@ -26,10 +26,9 @@ const removeAttribute = (index: number) => {
 }
 const uploadImage = async () => {
   const contract = await web3Service.deployNFT()
-  console.log("🚀 ~ file: single-nft.vue:29 ~ uploadImage ~ deploy", contract)
   const res = await web3Service.uploadNFT(data)
   if(contract && res?.uri) {
-    const mintTx = web3Service.mintNFT(contract, res?.uri, 1)
+    const mintTx = await web3Service.mintNFT(contract, res?.uri, 1)
     console.log("🚀 ~ file: single-nft.vue:33 ~ uploadImage ~ mintTx", mintTx)
     if(res) {
       isSuccess.value = true
