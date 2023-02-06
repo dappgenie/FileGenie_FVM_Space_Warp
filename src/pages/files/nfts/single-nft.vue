@@ -38,6 +38,18 @@ const uploadImage = async () => {
     isSuccess.value = true
   }
 }
+const mountFetch= async()=>{
+  const { data, error } = await supabase
+  .from('files')
+  .select()
+  .eq('user_wallet', address.value)
+
+  console.table(data)
+  console.log(error)
+}
+onMounted(() => {
+  mountFetch()
+})
 </script>
 
 <template>
@@ -50,6 +62,7 @@ const uploadImage = async () => {
       </Button>
     </template>
   </SubHeader>
+
   <ModalCustom :show="showUploadNFT" @close="showUploadNFT = false">
     <template #title>
       <div p-6 text-lg font-black>Add NFT Data</div>
@@ -94,6 +107,7 @@ const uploadImage = async () => {
       </div>
     </template>
   </ModalCustom>
+
 </template>
 
 <style scoped lang="css">
