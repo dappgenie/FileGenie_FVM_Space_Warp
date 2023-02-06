@@ -58,8 +58,8 @@ const upload = async() => {
     }
     console.log("🚀 ~ file: [name].vue:43 ~ upload ~ metaDataJson.value", metaDataJson.value)
   }
-  
 }
+
 // const data = ref<INFTCollection>({
 //   name: (route.params.name as string) || '',
 //   nfts: [
