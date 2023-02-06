@@ -38,12 +38,12 @@ export class Web3Service {
       return null
     }
   }
-  async uploadNFTCollection (files: File[], metaData: any) : Promise<string | null> {
-    const cid = await storeNFTCollection(files, metaData)
-    console.log("🚀 ~ file: web3.service.ts:10 ~ Web3Service ~ uploadNFT ~ cid", cid)
-    if(cid) {
+  async uploadNFTCollection (files: File[], metaData: any) : Promise<{ metaDataCids: string, ids: string[] } | null> {
+    const res = await storeNFTCollection(files, metaData)
+    console.log("🚀 ~ file: web3.service.ts:10 ~ Web3Service ~ uploadNFT ~ cid", res)
+    if(res) {
       addToast('Success', 'NFT data stored!', 'success')
-      return cid
+      return res
     }
     else {
       addToast('Error', 'NFT data not stored!', 'error')
@@ -62,6 +62,22 @@ export class Web3Service {
       const contract = new Contract(contractAddress, ABI_ERC1155, signer)
       const data = utils.hexlify(utils.toUtf8Bytes(""));
       const tx = await contract.mint(address.value, amount, data, uri)
+      await tx.wait()
+      return tx.hash
+    }
+  }
+  async mintNFTCollection (contractAddress: string, ids: string[], amount: number[]) {
+    const { ethereum } = window
+    if (!ethereum) {
+      addToast('Oh Snap!', 'Ethereum provider not found', 'error')
+      return false
+    }
+    if(ethereum) {
+      const provider = new providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new Contract(contractAddress, ABI_ERC1155, signer)
+      const data = utils.hexlify(utils.toUtf8Bytes(""));
+      const tx = await contract.mintBatch(address.value, ids, amount, data)
       await tx.wait()
       return tx.hash
     }
