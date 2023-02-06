@@ -1,4 +1,4 @@
-import { Contract, ContractFactory, providers } from 'ethers';
+import { Contract, ContractFactory, providers, utils } from 'ethers';
 import { ABI_ERC1155, BYTECODE_ERC1155 } from '~/utils/constants/contracts';
 import { INFTStructure } from "~/utils/interfaces/NFT";
 import { storeNFT, storeNFTCollection } from './NFTStorage.service';
@@ -19,7 +19,8 @@ export class Web3Service {
       const signer = provider.getSigner();
       const factory = new ContractFactory(ABI_ERC1155, BYTECODE_ERC1155, signer)
       // If your contract requires constructor args, you can specify them here
-      const contract = await factory.deploy("");
+      const contract = await factory.deploy();
+      console.log("🚀 ~ file: web3.service.ts:23 ~ Web3Service ~ deployNFT ~ contract", contract)
       return contract.address
     }
   }
@@ -59,7 +60,8 @@ export class Web3Service {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new Contract(contractAddress, ABI_ERC1155, signer)
-      const tx = await contract.mint(address.value, amount, "", uri)
+      const data = utils.hexlify(utils.toUtf8Bytes(""));
+      const tx = await contract.mint(address.value, amount, data, uri)
       await tx.wait()
       return tx.hash
     }
