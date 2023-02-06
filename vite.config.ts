@@ -75,12 +75,12 @@ export default defineConfig({
     Unocss(),
     // https://github.com/antfu/vite-plugin-inspect
     // Visit http://localhost:3333/__inspect/ to see the inspector
-    Inspect(),
+    // Inspect(),
 
     // https://github.com/webfansplz/vite-plugin-vue-inspector
-    Inspector({
-      toggleButtonVisibility: 'never',
-    }),
+    // Inspector({
+    //   toggleButtonVisibility: 'never',
+    // }),
   ],
 
   // https://github.com/antfu/vite-ssg

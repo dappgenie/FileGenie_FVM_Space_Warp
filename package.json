@@ -15,12 +15,12 @@
   "dependencies": {
     "@anu-vue/preset-theme-default": "^0.12.0",
     "@iconify-json/mdi": "^1.1.45",
+    "@supabase/supabase-js": "^2.7.1",
     "@unocss/reset": "^0.48.4",
     "@vueuse/core": "^9.11.0",
     "@vueuse/head": "^1.0.22",
     "anu-vue": "^0.12.0",
     "ethers": "^5.7.2",
-    "firebase": "^9.17.1",
     "lodash.clonedeep": "^4.5.0",
     "nft.storage": "^7.0.0",
     "nprogress": "^0.2.0",
@@ -29,7 +29,6 @@
     "vue": "^3.2.45",
     "vue-demi": "^0.13.11",
     "vue-router": "^4.1.6",
-    "vuefire": "^3.0.1",
     "web3.storage": "^4.4.0"
   },
   "devDependencies": {
