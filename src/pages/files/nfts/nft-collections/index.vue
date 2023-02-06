@@ -1,11 +1,25 @@
-<script lang="ts" setup>
+<script lang="ts" setup>import { supabase } from '~/utils/functions/supabase';
+
 const router = useRouter()
+const { address } = storeToRefs(useWeb3Store())
 const showUploadNFT = ref<boolean>(false)
 const name = ref<string>('')
 const go = () => {
   if('name')
     router.push(`/files/nfts/nft-collections/${encodeURIComponent(name.value)}`)
 }
+const mountFetch = async () => {
+  const { data, error } = await supabase
+    .from('ipfs_collection_nft')
+    .select()
+    .eq('user_wallet', address.value)
+
+  console.table(data)
+  console.log(error)
+}
+onMounted(() => {
+  mountFetch()
+})
 </script>
 
 <template>

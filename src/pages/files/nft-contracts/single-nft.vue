@@ -35,7 +35,7 @@ const uploadImage = async () => {
     console.log("🚀 ~ file: single-nft.vue:33 ~ uploadImage ~ mintTx", mintTx)
     if (res) {
       await supabase
-        .from('nft-contracts')
+        .from('single_nft_contract')
         .insert({
           name: data.name,
           cid: res?.cid,
@@ -52,7 +52,7 @@ const uploadImage = async () => {
 }
 const mountFetch = async () => {
   const { data, error } = await supabase
-    .from('nft-contracts')
+    .from('single_nft_contract')
     .select()
     .eq('user_wallet', address.value)
 

@@ -1,5 +1,6 @@
 <script lang="ts" setup>import { Web3Service } from '~/services/web3';
-
+import { supabase } from '~/utils/functions/supabase';
+const { address } = storeToRefs(useWeb3Store())
 const { files, open } = useFileDialog()
 interface IContract {
   name: string
@@ -45,6 +46,9 @@ const upload = async() => {
     console.log("🚀 ~ file: [name].vue:43 ~ upload ~ metaDataJson.value", metaDataJson.value)
     const res = await web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
     console.log("🚀 ~ file: [name].vue:48 ~ upload ~ res", res)
+    await supabase
+        .from('ipfs_collection_nft')
+        .insert({ name: name.value, cid: res?.metaDataCids, ids: res?.ids, user_wallet: address.value })
   }
 }
 // const data = ref<INFTCollection>({

@@ -10,7 +10,7 @@ const go = () => {
 }
 const mountFetch = async () => {
   const { data, error } = await supabase
-    .from('nft-collection_nft_contract')
+    .from('collection_nft_contract')
     .select()
     .eq('user_wallet', address.value)
 
