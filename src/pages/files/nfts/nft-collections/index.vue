@@ -1,19 +1,35 @@
 <script lang="ts" setup>import { supabase } from '~/utils/functions/supabase';
+import { IFolder } from '~/utils/interfaces/folder';
 
 const router = useRouter()
 const { address } = storeToRefs(useWeb3Store())
 const showUploadNFT = ref<boolean>(false)
 const name = ref<string>('')
+const foldersList = ref<IFolder[]>([])
+const open = (folder: IFolder) => {
+  console.log("🚀 ~ file: index.vue:10 ~ open ~ folder", folder)
+    localStorage.setItem('nft_collections', JSON.stringify(folder))
+}
 const go = () => {
-  if('name')
+  if('name') {
     router.push(`/files/nfts/nft-collections/${encodeURIComponent(name.value)}`)
+  }
 }
 const mountFetch = async () => {
   const { data, error } = await supabase
     .from('ipfs_collection_nft')
     .select()
     .eq('user_wallet', address.value)
-
+    data?.map((item: any) => {
+      foldersList.value.push({
+        name: item.name,
+        path: `/files/nfts/nft-collections/${encodeURIComponent(item.name)}`,
+        id: item.id,
+        parent: null,
+        children: [],
+        files: []
+      })
+    })
   console.table(data)
   console.log(error)
 }
@@ -32,6 +48,11 @@ onMounted(() => {
       </Button>
     </template>
   </SubHeader>
+    <FMSFolderList
+      v-if="foldersList"
+      :folders="foldersList"
+      @open:folder="open($event)"
+    />
   <ModalCustom :show="showUploadNFT" @close="showUploadNFT=false">
     <template #title>
       <div p-6 text-lg font-black>Add NFT Collection</div>

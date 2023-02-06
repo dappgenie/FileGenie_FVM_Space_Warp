@@ -63,6 +63,14 @@ const upload = async() => {
 //   ],
 // })
 onMounted(() => {
+  const data = localStorage.getItem('nft_collections')
+  if(data) {
+    const parsedData = JSON.parse(data)
+    console.log("🚀 ~ file: [name].vue:69 ~ onMounted ~ parsedData", parsedData)
+    if(parsedData.name === name.value) {
+      filesList.value = parsedData.nfts
+    }
+  }
   showInstructions.value = true;
   console.log('mounted', name.value)
 })
