@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { Web3Service } from '~/services/web3';
+import { supabase } from '~/utils/functions/supabase';
 const { files, open } = useFileDialog()
 interface IContract {
   name: string
   type: string
 }
+const { address } = storeToRefs(useWeb3Store())
 const route = useRoute()
 const web3Service = new Web3Service()
 const name = ref<string>((route.params.name as string) || '')
@@ -14,48 +16,47 @@ const isSuccess = ref<boolean>(false)
 let filesList = ref<IContract[]>([])
 const filesDataList = ref<File[]>([])
 const metaDataFile = computed(() => {
-  if(!files.value) return null
+  if (!files.value) return null
   return files.value[0]
 })
 const metaDataJson = ref<any>(null)
 function onDrop(filesData: File[] | null) {
   console.log("🚀 ~ file: [name].vue:9 ~ onDrop ~ filesData", filesData)
-  if(!filesData) return
+  if (!filesData) return
   filesDataList.value = filesData
   filesList.value = filesData.map((file) => {
     return {
       name: file.name,
       type: file.type,
-      size: ((file.size/1024) > 1024) ? `${((file.size/1024)/1024).toFixed(2)} MB` : `${(file.size/1024).toFixed(2)} KB`,
+      size: ((file.size / 1024) > 1024) ? `${((file.size / 1024) / 1024).toFixed(2)} MB` : `${(file.size / 1024).toFixed(2)} KB`,
     }
   })
   console.log("🚀 ~ file: [name].vue:25 ~ filesList=files.map ~ filesList", filesList)
 }
 
-const readFile = async(file: File) => {
+const readFile = async (file: File) => {
   const reader = new FileReader();
   reader.onload = async (event) => {
-    metaDataJson.value =  await JSON.parse(event.target?.result as string);
+    metaDataJson.value = await JSON.parse(event.target?.result as string);
   };
   reader.readAsText(file);
 };
 
-const upload = async() => {
-  if(!files.value) return
-  if(metaDataJson.value) {
+const upload = async () => {
+  if (!files.value) return
+  if (metaDataJson.value) {
     const res = await web3Service.uploadNFTCollection(filesDataList.value, metaDataJson.value)
-    if(!res) return
+    if (!res) return
     const contract = await web3Service.deployNFTCollection(res?.metaDataCids)
     console.log("🚀 ~ file: [name].vue:47 ~ upload ~ contract", contract)
-    if(contract && res?.ids.length) {
+    if (contract && res?.ids.length) {
       const amounts = res.ids.map(() => 1)
-      const mintTx = await web3Service.mintNFTCollection(contract, res?.ids, amounts)
-      console.log("🚀 ~ file: single-nft.vue:33 ~ uploadImage ~ mintTx", mintTx)
-      if(res) {
-        isSuccess.value = true
-      }
+      await web3Service.mintNFTCollection(contract, res?.ids, amounts)
+      await supabase
+        .from('collection_nft_contract')
+        .insert({ name: name.value, cid: res?.metaDataCids, ids: res?.ids, contract_address: contract, user_wallet: address.value })
     }
-    if(res) {
+    if (res) {
       isSuccess.value = true
     }
     console.log("🚀 ~ file: [name].vue:43 ~ upload ~ metaDataJson.value", metaDataJson.value)
@@ -77,7 +78,7 @@ onMounted(() => {
   showInstructions.value = true;
   console.log('mounted', name.value)
 })
-watch(metaDataFile, async(val) => {
+watch(metaDataFile, async (val) => {
   console.log("🚀 ~ file: [name].vue:67 ~ watch ~ val", val)
   await readFile(val as File)
 })
@@ -94,42 +95,28 @@ const removeFile = (index: number) => {
 </script>
 
 <template>
-  <div w-full flex gap-x-2 mt-10 px-24 justify-end  >
+  <div w-full flex gap-x-2 mt-10 px-24 justify-end>
     <Button v-if="files" :rounded="'lg'" @click="upload()">
-          <template #content>
-            Upload collection
-          </template>
-        </Button>
+      <template #content>
+        Upload collection
+      </template>
+    </Button>
 
     <Button v-else :rounded="'lg'" @click="open()">
-          <template #content>
-            Add Metadata
-          </template>
-        </Button>
+      <template #content>
+        Add Metadata
+      </template>
+    </Button>
   </div>
-  <Table
-    v-if="filesList.length"
-    :rows="filesList"
-    :columns="colData"
-    :search="true"
-    :noResultsText="'No matching results found!!'"
-    :isSortable="true"
-    :multiSort="false"
-    :pageSize="5"
-  >
-    <template #row-action="{record, idx}">
+  <Table v-if="filesList.length" :rows="filesList" :columns="colData" :search="true"
+    :noResultsText="'No matching results found!!'" :isSortable="true" :multiSort="false" :pageSize="5">
+    <template #row-action="{ record, idx }">
       <div class="flex items-center justify-center">
-        <ABtn
-          @click="removeFile(idx)"
-          class="text-xs color_dark"
-          icon="i-bx-trash"
-          icon-only
-          variant="text"
-        />
+        <ABtn @click="removeFile(idx)" class="text-xs color_dark" icon="i-bx-trash" icon-only variant="text" />
       </div>
     </template>
   </Table>
-  <FormDropzone @on-drop="onDrop($event)" v-else/>
+  <FormDropzone @on-drop="onDrop($event)" v-else />
   <!-- <div v-else class="dropzone" ref="dropZoneRef">
     <div m-auto text-center>
       <div w-24 h-24 i-mdi:image/>
@@ -137,7 +124,7 @@ const removeFile = (index: number) => {
     </div>
   </div> -->
 
-  <ModalCustom :show="showInstructions" @close="showInstructions=false">
+  <ModalCustom :show="showInstructions" @close="showInstructions = false">
     <template #title>
       <div p-6 text-lg font-black>How to upload a collection</div>
     </template>
@@ -155,6 +142,7 @@ const removeFile = (index: number) => {
 </template>
 
 <style scoped lang="css">
+
 </style>
 
 <route lang="yaml">

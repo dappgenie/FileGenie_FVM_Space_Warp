@@ -1,7 +1,6 @@
 <script lang="ts" setup>import { Web3Service } from '~/services/web3';
-import { readFile } from '~/utils/functions/web3';
 
-const { files, open, reset } = useFileDialog()
+const { files, open } = useFileDialog()
 interface IContract {
   name: string
   type: string
