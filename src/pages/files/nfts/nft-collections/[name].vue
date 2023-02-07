@@ -11,6 +11,12 @@ const web3Service = new Web3Service()
 const name = ref<string>((route.params.name as string) || '')
 const showInstructions = ref<boolean>(false)
 
+const colData = [
+  { name: 'index', title: 'Index', width: 'w-[20%]' },
+  { name: 'id', title: 'File ID', width: 'w-[30%]' },
+  { name: 'action', title: 'Action', width: 'w-[20%]' }
+]
+let filesNewList = ref<[]>([])
 let filesList = ref<IContract[]>([])
 const filesDataList = ref<File[]>([])
 const metaDataFile = computed(() => {
@@ -51,39 +57,36 @@ const upload = async() => {
         .insert({ name: name.value, cid: res?.metaDataCids, ids: res?.ids, user_wallet: address.value })
   }
 }
-// const data = ref<INFTCollection>({
-//   name: (route.params.name as string) || '',
-//   nfts: [
-//     {
-//       name: '',
-//       description: '',
-//       image: null,
-//       attributes: []
-//     },
-//   ],
-// })
 onMounted(() => {
+  const data = localStorage.getItem('nft_collections')
+  if(data) {
+    const parsedData = JSON.parse(data)
+    console.log("🚀 ~ file: [name].vue:64 ~ onMounted ~ parsedData - 1", parsedData)
+    if(parsedData.name === name.value) {
+      // filesList.value = parsedData.nfts
+      filesDataList.value = parsedData.ids.map((nft: any) => {
+        return {
+          id: `${parsedData.name}-${nft}`,
+          uri: `https://ipfs.io/ipfs/${parsedData.cid}/${nft}.json`
+        }
+      })
+      console.log("🚀 ~ file: [name].vue:73 ~ filesDataList.value=parsedData.ids.map ~ filesDataList", filesDataList)
+    }
+  }
   showInstructions.value = true;
   console.log('mounted', name.value)
 })
 watch(metaDataFile, async(val) => {
-  console.log("🚀 ~ file: [name].vue:67 ~ watch ~ val", val)
   await readFile(val as File)
 })
-const colData = [
-  { name: 'index', title: 'Index', width: 'w-[10%]' },
-  { name: 'name', title: 'File Name', width: 'w-[25%]' },
-  { name: 'type', title: 'Type', width: 'w-[25%]' },
-  { name: 'size', title: 'Size', width: 'w-[20%]' },
-  { name: 'action', title: 'Action', width: 'w-[25%]' }
-]
-const removeFile = (index: number) => {
-  filesList.value.splice(index, 1)
+const openNFT = (uri: string) => {
+  window.open(uri, "_blank")
 }
+
 </script>
 
 <template>
-  <div w-full flex gap-x-2 mt-10 px-24 justify-end  >
+  <div v-if="filesDataList.length===0" w-full flex gap-x-2 mt-10 px-24 justify-end  >
     <Button v-if="files" :rounded="'lg'" @click="upload()">
           <template #content>
             Upload collection
@@ -97,8 +100,8 @@ const removeFile = (index: number) => {
         </Button>
   </div>
   <Table
-    v-if="filesList.length"
-    :rows="filesList"
+    v-if="filesDataList.length"
+    :rows="filesDataList"
     :columns="colData"
     :search="true"
     :noResultsText="'No matching results found!!'"
@@ -109,9 +112,9 @@ const removeFile = (index: number) => {
     <template #row-action="{record, idx}">
       <div class="flex items-center justify-center">
         <ABtn
-          @click="removeFile(idx)"
+          @click="openNFT(record.uri)"
           class="text-xs color_dark"
-          icon="i-bx-trash"
+          icon="i-bx:window-open"
           icon-only
           variant="text"
         />
@@ -126,7 +129,7 @@ const removeFile = (index: number) => {
     </div>
   </div> -->
 
-  <ModalCustom :show="showInstructions" @close="showInstructions=false">
+  <ModalCustom :show="showInstructions && !filesDataList.length" @close="showInstructions=false">
     <template #title>
       <div p-6 text-lg font-black>How to upload a collection</div>
     </template>
