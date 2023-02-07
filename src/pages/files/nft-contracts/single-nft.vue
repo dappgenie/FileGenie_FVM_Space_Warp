@@ -40,7 +40,7 @@ const uploadImage = async () => {
           name: data.name,
           cid: res?.cid,
           uri: res?.uri,
-          user_wallet: address.value,
+          wallet_address: address.value,
           contract_address: contract,
         })
       isSuccess.value = true
@@ -54,7 +54,7 @@ const mountFetch = async () => {
   const { data, error } = await supabase
     .from('single_nft_contract')
     .select()
-    .eq('user_wallet', address.value)
+    .eq('wallet_address', address.value)
 
   console.table(data)
   console.log(error)
