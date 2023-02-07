@@ -31,7 +31,6 @@ function onDrop(filesData: File[] | null) {
       size: ((file.size / 1024) > 1024) ? `${((file.size / 1024) / 1024).toFixed(2)} MB` : `${(file.size / 1024).toFixed(2)} KB`,
     }
   })
-  console.log("🚀 ~ file: [name].vue:25 ~ filesList=files.map ~ filesList", filesList)
 }
 
 const readFile = async (file: File) => {

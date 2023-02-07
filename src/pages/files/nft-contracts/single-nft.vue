@@ -35,16 +35,17 @@ const uploadImage = async () => {
     console.log("🚀 ~ file: single-nft.vue:33 ~ uploadImage ~ mintTx", mintTx)
     if (res) {
       await supabase
-        .from('single_nft_contract')
-        .insert({
-          name: data.name,
-          cid: res?.cid,
-          uri: res?.uri,
-          user_wallet: address.value,
-          contract_address: contract,
-        })
+      .from('single_nft_contract')
+      .insert({
+        name: data.name,
+        cid: res?.cid,
+        uri: res?.uri,
+        user_wallet: address.value,
+        contract_address: contract,
+      })
       isSuccess.value = true
     }
+    console.log("🚀 ~ file: single-nft.vue:37 ~ uploadImage ~ res", res)
   }
   if (res) {
     isSuccess.value = true

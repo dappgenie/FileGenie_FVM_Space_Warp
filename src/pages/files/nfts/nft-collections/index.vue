@@ -13,6 +13,7 @@ const open = (folder: IFolder) => {
     localStorage.setItem('nft_collections', JSON.stringify(file[0]))
 }
 const go = () => {
+  localStorage.setItem('nft_collections', 'null')
   if('name') {
     router.push(`/files/nfts/nft-collections/${encodeURIComponent(name.value)}`)
   }

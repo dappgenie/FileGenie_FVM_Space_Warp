@@ -11,7 +11,14 @@ const web3Service = new Web3Service()
 const name = ref<string>((route.params.name as string) || '')
 const showInstructions = ref<boolean>(false)
 
-const colData = [
+const colData1 = [
+  { name: 'index', title: 'Index', width: 'w-[10%]' },
+  { name: 'name', title: 'File Name', width: 'w-[25%]' },
+  { name: 'type', title: 'Type', width: 'w-[25%]' },
+  { name: 'size', title: 'Size', width: 'w-[20%]' },
+  { name: 'action', title: 'Action', width: 'w-[25%]' }
+]
+const colData2 = [
   { name: 'index', title: 'Index', width: 'w-[20%]' },
   { name: 'id', title: 'File ID', width: 'w-[30%]' },
   { name: 'action', title: 'Action', width: 'w-[20%]' }
@@ -27,7 +34,6 @@ const metaDataJson = ref<any>(null)
 function onDrop(filesData: File[] | null) {
   console.log("🚀 ~ file: [name].vue:9 ~ onDrop ~ filesData", filesData)
   if(!filesData) return
-  filesDataList.value = filesData
   filesList.value = filesData.map((file) => {
     return {
       name: file.name,
@@ -62,7 +68,7 @@ onMounted(() => {
   if(data) {
     const parsedData = JSON.parse(data)
     console.log("🚀 ~ file: [name].vue:64 ~ onMounted ~ parsedData - 1", parsedData)
-    if(parsedData.name === name.value) {
+    if(parsedData && parsedData.name === name.value) {
       // filesList.value = parsedData.nfts
       filesDataList.value = parsedData.ids.map((nft: any) => {
         return {
@@ -81,6 +87,9 @@ watch(metaDataFile, async(val) => {
 })
 const openNFT = (uri: string) => {
   window.open(uri, "_blank")
+}
+const removeFile = (index: number) => {
+  filesList.value.splice(index, 1)
 }
 
 </script>
@@ -102,7 +111,7 @@ const openNFT = (uri: string) => {
   <Table
     v-if="filesDataList.length"
     :rows="filesDataList"
-    :columns="colData"
+    :columns="colData2"
     :search="true"
     :noResultsText="'No matching results found!!'"
     :isSortable="true"
@@ -121,7 +130,29 @@ const openNFT = (uri: string) => {
       </div>
     </template>
   </Table>
-  <FormDropzone @on-drop="onDrop($event)" v-else/>
+  <FormDropzone v-if="!filesDataList.length && !filesList.length" @on-drop="onDrop($event)"/>
+  <Table
+    v-if="filesList.length"
+    :rows="filesList"
+    :columns="colData1"
+    :search="true"
+    :noResultsText="'No matching results found!!'"
+    :isSortable="true"
+    :multiSort="false"
+    :pageSize="5"
+  >
+    <template #row-action="{record, idx}">
+      <div class="flex items-center justify-center">
+        <ABtn
+          @click="removeFile(idx)"
+          class="text-xs color_dark"
+          icon="i-bx-trash"
+          icon-only
+          variant="text"
+        />
+      </div>
+    </template>
+  </Table>
   <!-- <div v-else class="dropzone" ref="dropZoneRef">
     <div m-auto text-center>
       <div w-24 h-24 i-mdi:image/>
