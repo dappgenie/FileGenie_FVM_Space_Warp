@@ -6,9 +6,11 @@ const { address } = storeToRefs(useWeb3Store())
 const showUploadNFT = ref<boolean>(false)
 const name = ref<string>('')
 const foldersList = ref<IFolder[]>([])
+const filesList = ref<any[]>([])
 const open = (folder: IFolder) => {
   console.log("🚀 ~ file: index.vue:10 ~ open ~ folder", folder)
-    localStorage.setItem('nft_collections', JSON.stringify(folder))
+  const file = filesList.value.filter((item: any) => item.name === folder.name)
+    localStorage.setItem('nft_collections', JSON.stringify(file[0]))
 }
 const go = () => {
   if('name') {
@@ -20,6 +22,8 @@ const mountFetch = async () => {
     .from('ipfs_collection_nft')
     .select()
     .eq('user_wallet', address.value)
+    if(!data) return
+    filesList.value = data
     data?.map((item: any) => {
       foldersList.value.push({
         name: item.name,
