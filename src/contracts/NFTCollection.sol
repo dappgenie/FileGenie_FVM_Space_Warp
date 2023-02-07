@@ -3,53 +3,58 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./types/MarketTypes.sol";
 
-contract SingleNFT is ERC1155, Ownable {
-    using Counters for Counters.Counter;
+contract NFTCollection is ERC1155, Ownable {
+    string _baseURI = "";
     mapping(uint64 => MarketTypes.MockDeal) deals;
 
-    mapping(uint256 => string) nft_uris; //
-    
-    Counters.Counter public _tokenIdCounter;
-
-    constructor() ERC1155("") {
+    constructor(string memory _uri) ERC1155("") {
+        _baseURI = _uri;
     }
 
     function uri(uint256 id) public view virtual override returns (string memory) {
-        return nft_uris[id];
+        return string(abi.encodePacked(_baseURI, Strings.toString(id), '.json'));
     }
 
-    function setURI(uint256 _id, string memory _newuri) public onlyOwner {
-        _setURI(_id,_newuri);
+    function mint(address account, uint256 id, uint256 amount, bytes memory data)
+        public
+        onlyOwner
+    {
+        _mint(account, id, amount, data);
     }
 
-    function mint(address account, uint256 amount, bytes memory data, string memory _uri, string memory _cid) public returns (uint256) {
-        _tokenIdCounter.increment();
-        _mint(account, _tokenIdCounter.current(), amount, data);
-        _setURI( _tokenIdCounter.current(), _uri);
-        return ( _tokenIdCounter.current() );
-        addMockData(_cid);
+    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, string[] memory _cids, bytes memory data)
+        public
+        onlyOwner
+    {
+        for(uint8 i=0; i<ids.length;i++) {
+            addMockData(_cids[i], ids[i]);
+        }
+        _mintBatch(to, ids, amounts, data);
     }
 
     function burn(address account, uint256 id, uint256 amount) public onlyOwner {
-        nft_uris[id] = "";
         _burn(account, id, amount);
+    }
+
+    function setURI(string memory _newuri) public onlyOwner {
+        _setURI(_newuri);
     }
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC1155) returns (bool) {
         return super.supportsInterface(interfaceId);
     } 
 
-    function _setURI(uint256 id, string memory newuri) internal {
-        nft_uris[id] = newuri;
+    function _setURI(string memory newuri) internal virtual override {
+        _baseURI = newuri;
     }
 
 
-    function addMockData(string memory cid) internal virtual{
+    function addMockData(string memory cid, uint256 id) internal virtual{
         MarketTypes.MockDeal memory deal;
-        deal.id = uint64(_tokenIdCounter.current());
+        deal.id = uint64(id);
         deal.cid = cid;
         deal.size = 8388608;
         deal.verified = false;
@@ -63,7 +68,6 @@ contract SingleNFT is ERC1155, Ownable {
         deal.client_collateral = 0;
         deal.activated = 1;
         deal.terminated = 0;
-
         deals[deal.id] = deal;
     }
 }
